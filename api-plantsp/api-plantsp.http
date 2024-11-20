@@ -1,0 +1,6 @@
+@api_plantsp_HostAddress = http://localhost:5010
+
+GET {{api_plantsp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
