@@ -9,15 +9,15 @@ namespace api_plantsp.Models
 
 
         [Display(Name = "Nome completo")]
-        [Required(ErrorMessage = "O campo nome é obrigatório")]
+        //[Required(ErrorMessage = "O campo nome é obrigatório")]
         public string NOME { get; set; }
 
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "O campo email é obrigatório")]
+        //[Required(ErrorMessage = "O campo email é obrigatório")]
         public string EMAIL { get; set; }
 
         [Display(Name = "Senha")]
-        [Required(ErrorMessage = "O campo senha é obrigatório")]
+        //[Required(ErrorMessage = "O campo senha é obrigatório")]
         public string SENHA { get; set; }
 
         [Display(Name = "Sexo")]
@@ -30,7 +30,6 @@ namespace api_plantsp.Models
         public string? TELEFONE { get; set; }
 
         [Display(Name = "Data de Nascimento")]
-        [DataType(DataType.DateTime)]
-        public DateTime? DATANASC { get; set; }
+        public string? DATANASC { get; set; }
     }
 }

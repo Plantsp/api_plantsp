@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 
 // Add CORS services
 builder.Services.AddCors(options =>
@@ -19,6 +20,9 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://localhost:3000")
               .AllowAnyMethod()
               .AllowAnyHeader();
+        policy.WithOrigins("https://plantsp.netlify.app")
+             .AllowAnyMethod()
+             .AllowAnyHeader();
     });
 });
 

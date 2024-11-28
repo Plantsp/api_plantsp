@@ -19,19 +19,6 @@ namespace api_plantsp.Repository
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                //MySqlCommand cmd = new MySqlCommand("update TBCLIENTE set NOME=@Nome, EMAIL=@Email, SENHA=@Senha, SEXO=@Sexo, CPF=@CPF, TELEFONE=@Telefone, DATANASC=@DataNasc  where IDCLI=@IdCli;", conexao);
-
-                //cmd.Parameters.Add("@Nome", MySqlDbType.VarChar).Value = usuario.NOME;
-                //cmd.Parameters.Add("@Email", MySqlDbType.VarChar).Value = usuario.EMAIL;
-                //cmd.Parameters.Add("@Senha", MySqlDbType.VarChar).Value = usuario.SENHA;
-                //cmd.Parameters.Add("@Sexo", MySqlDbType.VarChar).Value = usuario.SEXO;
-                //cmd.Parameters.Add("@CPF", MySqlDbType.VarChar).Value = usuario.CPF;
-                //cmd.Parameters.Add("@Telefone", MySqlDbType.VarChar).Value = usuario.TELEFONE;
-                //cmd.Parameters.Add("@DataNasc", MySqlDbType.VarChar).Value = usuario.DATANASC.ToString().FormatWith("yyyy/MM/dd");
-                //cmd.Parameters.Add("@IdCli", MySqlDbType.VarChar).Value = usuario.IDCLI;
-
-                //cmd.ExecuteNonQuery();
-                //conexao.Close();
 
                 // Lista para armazenar partes da query e parâmetros
                 List<string> partesQuery = new List<string>();
@@ -69,10 +56,10 @@ namespace api_plantsp.Repository
                     parametros.Add(new MySqlParameter("@Telefone", usuario.TELEFONE));
                 }
 
-                if (usuario.DATANASC.HasValue)
+                if (!string.IsNullOrEmpty(usuario.DATANASC))
                 {
                     partesQuery.Add("DATANASC = @DataNasc");
-                    parametros.Add(new MySqlParameter("@@DataNasc", usuario.DATANASC));
+                    parametros.Add(new MySqlParameter("@DataNasc", usuario.DATANASC));
                 }
 
                 // Verifica se há campos para atualizar
@@ -147,7 +134,7 @@ namespace api_plantsp.Repository
                     usuario.SEXO = dr["SEXO"] != DBNull.Value ? (string)(dr["SEXO"]) : null;
                     usuario.CPF = dr["CPF"] != DBNull.Value ? (string)(dr["CPF"]) : null;
                     usuario.TELEFONE = dr["TELEFONE"] != DBNull.Value ? (string)(dr["TELEFONE"]) : null;
-                    usuario.DATANASC = dr["DATANASC"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DATANASC"]);
+                    usuario.DATANASC = dr["DATANASC"] == DBNull.Value ? null : Convert.ToString(dr["DATANASC"]);
 
                     return usuario;
                 } 
@@ -158,10 +145,6 @@ namespace api_plantsp.Repository
             }
         }
 
-        public IEnumerable<Usuario> ObterTodosUsuarios()
-        {
-            throw new NotImplementedException();
-        }
 
         public Usuario ObterUsuario(int Id)
         {
@@ -185,7 +168,7 @@ namespace api_plantsp.Repository
                     usuario.SEXO = dr["SEXO"] != DBNull.Value ? (string)(dr["SEXO"]) : null;
                     usuario.CPF = dr["CPF"] != DBNull.Value ? (string)(dr["CPF"]) : null;
                     usuario.TELEFONE = dr["TELEFONE"] != DBNull.Value ? (string)(dr["TELEFONE"]) : null;
-                    usuario.DATANASC = dr["DATANASC"] == DBNull.Value ? (DateTime?) null : Convert.ToDateTime(dr["DATANASC"]);
+                    usuario.DATANASC = dr["DATANASC"] != DBNull.Value ? (string)(dr["DATANASC"]) : null;
                 }
                 return usuario;
             }
