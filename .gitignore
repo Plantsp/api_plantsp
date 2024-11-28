@@ -1,0 +1,69 @@
+# Arquivos de build
+bin/
+bin/Debug/
+obj/
+obj/Debug/
+Properties/
+
+
+# Arquivos de configuração do Visual Studio
+.vs/
+.vscode/
+.idea/
+
+# Arquivos de configuração do JetBrains Rider
+.idea/
+
+# Arquivos de dependência gerenciados pelo NuGet
+/packages/
+
+# Arquivos de log
+*.log
+
+# Arquivos temporários criados durante o desenvolvimento
+# Windows Installer
+Thumbs.db
+Desktop.ini
+
+# Arquivos do sistema de operação
+# Se estiver usando o Windows, exclua isso se o seu projeto for multiplataforma
+# Recomendado para projetos multiplataforma
+# .DS_Store
+
+# Arquivos de configuração do usuário
+# Exclui arquivos específicos do usuário e configurações pessoais
+# ex: configuração de usuário no Visual Studio
+.idea/
+
+# Arquivos de backup
+*~.bak
+*.swp
+
+# Arquivos de compilação para .NET Core
+wwwroot/
+
+# Dependências locais do projeto .NET
+# Não versionar as pastas de pacotes de dependências locais do projeto
+# Para o NuGet (pacotes de nuget)
+.nuget/
+
+# Se você usa Docker, pode adicionar as imagens e containers também:
+# docker-compose.override.yml
+docker-compose.override.yml
+
+# Arquivos de Teste
+# Testes podem gerar logs de cobertura de código, etc. Se não precisar versionar esses arquivos, adicione ao .gitignore
+test-coverage/
+
+# Configurações do ASP.NET Core para ambientes específicos
+appsettings.Development.json
+appsettings.Local.json
+
+# Arquivos de build de publicação
+publish/
+
+# Arquivos de certificação
+*.pfx
+
+# Arquivos de cache do NuGet
+.nuget/packages/
