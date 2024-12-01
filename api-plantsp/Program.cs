@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
 // Add CORS services
 builder.Services.AddCors(options =>
