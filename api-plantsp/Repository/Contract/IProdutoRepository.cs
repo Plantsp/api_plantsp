@@ -7,5 +7,6 @@ namespace api_plantsp.Repository.Contract
         void Cadastrar(Produto produto);
         Produto ObterProduto(int Id);
         List<Produto> ObterTodos();
+        List<Produto> ObterPorCategoria(string categoria);
     }
 }

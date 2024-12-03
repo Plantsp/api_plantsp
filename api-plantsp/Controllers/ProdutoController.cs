@@ -41,10 +41,22 @@ namespace api_plantsp.Controllers
         }
 
         // trazer informação do produto
-        [HttpGet("obterTodos")]
+        [HttpGet("obter/todos")]
         public IActionResult ObterTodos()
         {
             var produto = _produtoRepository.ObterTodos();
+            if (produto == null)
+            {
+                return NotFound(); // Retorna 404 se o produto não for encontrado
+            }
+
+            return Ok(produto); // Retorna o produto encontrado com status 200
+        }
+
+        [HttpGet("obter/categoria")]
+        public IActionResult ObterPorCategoria(string categoria)
+        {
+            var produto = _produtoRepository.ObterPorCategoria(categoria);
             if (produto == null)
             {
                 return NotFound(); // Retorna 404 se o produto não for encontrado

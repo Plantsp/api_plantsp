@@ -96,5 +96,37 @@ namespace api_plantsp.Repository
                 return produtos;
             }
         }
+        public List<Produto> ObterPorCategoria(string categoria)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from TBPRODUTO where CATEGORIA=@CATEGORIA", conexao);
+
+                cmd.Parameters.AddWithValue("@CATEGORIA", categoria);
+
+                MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                List<Produto> produtos = new List<Produto>();
+                while (dr.Read())
+                {
+                    Produto produto = new Produto
+                    {
+                        IDPROD = Convert.ToInt32(dr["IDPROD"]),
+                        NOME = dr["NOME"] != DBNull.Value ? dr["NOME"].ToString() : null,
+                        DESCRICAO = dr["DESCRICAO"] != DBNull.Value ? dr["DESCRICAO"].ToString() : null,
+                        VALOR = dr["VALOR"] != DBNull.Value ? Convert.ToDecimal(dr["VALOR"]) : (decimal?)null,
+                        DESCONTO = dr["DESCONTO"] != DBNull.Value ? Convert.ToDecimal(dr["DESCONTO"]) : (decimal?)null,
+                        CATEGORIA = dr["CATEGORIA"] != DBNull.Value ? dr["CATEGORIA"].ToString() : null,
+                        AVALIACAO = dr["AVALIACAO"] != DBNull.Value ? Convert.ToDecimal(dr["AVALIACAO"]) : (decimal?)null,
+                        DESCRICAODET = dr["DESCRICAODET"] != DBNull.Value ? dr["DESCRICAODET"].ToString() : null,
+                        IMAGEM = dr["IMAGEM"] != DBNull.Value ? dr["IMAGEM"].ToString() : null
+                    };
+
+                    produtos.Add(produto);
+                }
+                return produtos;
+            }
+        }
     }
 }
