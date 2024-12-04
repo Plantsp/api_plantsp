@@ -29,7 +29,7 @@ namespace api_plantsp.Repository
                 cmd.Parameters.Add("@ITENSFAV", MySqlDbType.JSON).Value = JsonSerializer.Serialize(favorito.ITENSFAV);
                 //}
                 int novoIdFavorito = Convert.ToInt32(cmd.ExecuteScalar());
-                favorito.IDCLI = novoIdFavorito;
+                favorito.IDFAV = novoIdFavorito;
 
                 conexao.Close();
 

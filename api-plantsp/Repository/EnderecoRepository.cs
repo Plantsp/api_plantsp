@@ -100,7 +100,7 @@ namespace api_plantsp.Repository
                 cmd.Parameters.Add("@IDCLI", MySqlDbType.Int32).Value = endereco.IDCLI;
 
                 int novoIdEndereco = Convert.ToInt32(cmd.ExecuteScalar());
-                endereco.IDCLI = novoIdEndereco;
+                endereco.IDEND = novoIdEndereco;
 
                 conexao.Close();
 

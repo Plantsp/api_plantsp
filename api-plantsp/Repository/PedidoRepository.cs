@@ -31,7 +31,7 @@ namespace api_plantsp.Repository
                 cmd.Parameters.Add("@ITENSPEDIDO", MySqlDbType.JSON).Value = JsonSerializer.Serialize(pedido.ITENSPEDIDO);
 
                 int novoIdPedido = Convert.ToInt32(cmd.ExecuteScalar());
-                pedido.IDCLI = novoIdPedido;
+                pedido.IDPED = novoIdPedido;
 
                 conexao.Close();
 
