@@ -24,8 +24,10 @@ namespace api_plantsp.Controllers
             {
                 return BadRequest();
             }
-            _usuarioRepository.Cadastrar(usuario);
-            return Ok(usuario);
+
+            var novoUsuario = _usuarioRepository.Cadastrar(usuario);
+            
+            return Ok(novoUsuario);
         }
 
         // atualizar usuário

@@ -17,12 +17,12 @@ namespace api_plantsp.Repository
             _conexaoMySQL = conf.GetConnectionString("ConexaoMySQL");
         }
 
-        public void Cadastrar(Pedido pedido)
+        public Pedido Cadastrar(Pedido pedido)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("insert into TBPEDIDO(IDCLI, DATAPEDIDO, TOTALCOMPRA, FORMAPAGAMENTO, ITENSPEDIDO) " + "values (@IDCLI, @DATAPEDIDO, @TOTALCOMPRA, @FORMAPAGAMENTO, @ITENSPEDIDO)", conexao);
+                MySqlCommand cmd = new MySqlCommand("insert into TBPEDIDO(IDCLI, DATAPEDIDO, TOTALCOMPRA, FORMAPAGAMENTO, ITENSPEDIDO) " + "values (@IDCLI, @DATAPEDIDO, @TOTALCOMPRA, @FORMAPAGAMENTO, @ITENSPEDIDO); SELECT LAST_INSERT_ID();", conexao);
 
                 cmd.Parameters.Add("@IDCLI", MySqlDbType.Int32).Value = pedido.IDCLI;
                 cmd.Parameters.Add("@DATAPEDIDO", MySqlDbType.Datetime).Value = pedido.DATAPEDIDO;
@@ -30,9 +30,12 @@ namespace api_plantsp.Repository
                 cmd.Parameters.Add("@FORMAPAGAMENTO", MySqlDbType.VarChar).Value = pedido.FORMAPAGAMENTO;
                 cmd.Parameters.Add("@ITENSPEDIDO", MySqlDbType.JSON).Value = JsonSerializer.Serialize(pedido.ITENSPEDIDO);
 
-                cmd.ExecuteNonQuery();
+                int novoIdPedido = Convert.ToInt32(cmd.ExecuteScalar());
+                pedido.IDCLI = novoIdPedido;
 
                 conexao.Close();
+
+                return pedido;
             }
         }
 

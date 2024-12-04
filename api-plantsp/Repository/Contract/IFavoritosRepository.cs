@@ -4,7 +4,7 @@ namespace api_plantsp.Repository.Contract
 {
     public interface IFavoritosRepository
     {
-        void Cadastrar(Favoritos favorito);
+        Favoritos Cadastrar(Favoritos favorito);
         void Atualizar(Favoritos favorito);
         Favoritos ObterFavoritosCliente(int IdCli);
     }

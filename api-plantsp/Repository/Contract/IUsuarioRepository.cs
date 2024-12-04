@@ -4,7 +4,7 @@ namespace api_plantsp.Repository.Contract
 {
     public interface IUsuarioRepository
     {
-        void Cadastrar(Usuario usuario);
+        Usuario Cadastrar(Usuario usuario);
         void Atualizar(Usuario usuario);
         Usuario ObterUsuario(int Id);
         void Excluir(int Id);

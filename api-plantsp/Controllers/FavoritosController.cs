@@ -25,8 +25,10 @@ namespace api_plantsp.Controllers
             {
                 return BadRequest();
             }
-            _favoritosRepository.Cadastrar(favorito);
-            return Ok(favorito);
+
+            var novofav = _favoritosRepository.Cadastrar(favorito);
+
+            return Ok(novofav);
         }
 
         [HttpGet("obter")]

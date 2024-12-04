@@ -82,13 +82,13 @@ namespace api_plantsp.Repository
             }
         }
 
-        public void Cadastrar(Endereco endereco)
+        public Endereco Cadastrar(Endereco endereco)
         {
 
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("insert into TBENDERECO (CEP,CIDADE,UF,LOGRADOURO,BAIRRO,NUMERO,COMPLEMENTO,IDCLI) " + "values (@CEP,@CIDADE,@UF,@LOGRADOURO,@BAIRRO,@NUMERO,@COMPLEMENTO,@IDCLI)", conexao);
+                MySqlCommand cmd = new MySqlCommand("insert into TBENDERECO (CEP,CIDADE,UF,LOGRADOURO,BAIRRO,NUMERO,COMPLEMENTO,IDCLI) " + "values (@CEP,@CIDADE,@UF,@LOGRADOURO,@BAIRRO,@NUMERO,@COMPLEMENTO,@IDCLI); SELECT LAST_INSERT_ID();", conexao);
 
                 cmd.Parameters.Add("@CEP", MySqlDbType.VarChar).Value = endereco.CEP;
                 cmd.Parameters.Add("@CIDADE", MySqlDbType.VarChar).Value = endereco.CIDADE;
@@ -99,8 +99,12 @@ namespace api_plantsp.Repository
                 cmd.Parameters.Add("@COMPLEMENTO", MySqlDbType.VarChar).Value = endereco.COMPLEMENTO;
                 cmd.Parameters.Add("@IDCLI", MySqlDbType.Int32).Value = endereco.IDCLI;
 
-                cmd.ExecuteNonQuery();
+                int novoIdEndereco = Convert.ToInt32(cmd.ExecuteScalar());
+                endereco.IDCLI = novoIdEndereco;
+
                 conexao.Close();
+
+                return endereco;
             }
         }
 

@@ -17,20 +17,23 @@ namespace api_plantsp.Repository
         }
 
 
-        public void Cadastrar(Favoritos favorito)
+        public Favoritos Cadastrar(Favoritos favorito)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("insert into TBFAVORITOS(IDCLI, ITENSFAV) " + "values (@IDCLI, @ITENSFAV)", conexao);
+                MySqlCommand cmd = new MySqlCommand("insert into TBFAVORITOS(IDCLI, ITENSFAV) " + "values (@IDCLI, @ITENSFAV); SELECT LAST_INSERT_ID();", conexao);
 
                 cmd.Parameters.Add("@IDCLI", MySqlDbType.Int32).Value = favorito.IDCLI;
                 //if (favorito.ITENSFAV.Count > 0) {
                 cmd.Parameters.Add("@ITENSFAV", MySqlDbType.JSON).Value = JsonSerializer.Serialize(favorito.ITENSFAV);
                 //}
-                cmd.ExecuteNonQuery();
+                int novoIdFavorito = Convert.ToInt32(cmd.ExecuteScalar());
+                favorito.IDCLI = novoIdFavorito;
 
                 conexao.Close();
+
+                return favorito;
             }
         }
 

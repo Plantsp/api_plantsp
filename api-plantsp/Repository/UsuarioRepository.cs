@@ -81,21 +81,24 @@ namespace api_plantsp.Repository
             }
         }
 
-        public void Cadastrar(Usuario usuario)
+        public Usuario Cadastrar(Usuario usuario)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("insert into TBCLIENTE(NOME, EMAIL, SENHA) " + "values (@Nome, @Email, @Senha)", conexao);
+                MySqlCommand cmd = new MySqlCommand("insert into TBCLIENTE(NOME, EMAIL, SENHA) " + "values (@Nome, @Email, @Senha); SELECT LAST_INSERT_ID();", conexao);
 
                 cmd.Parameters.Add("@Nome", MySqlDbType.VarChar).Value = usuario.NOME;
                 cmd.Parameters.Add("@Email", MySqlDbType.VarChar).Value = usuario.EMAIL;
                 cmd.Parameters.Add("@Senha", MySqlDbType.VarChar).Value = usuario.SENHA;
 
-                cmd.ExecuteNonQuery();
+                int novoIdUsuario = Convert.ToInt32(cmd.ExecuteScalar());
+                usuario.IDCLI = novoIdUsuario;
+
                 conexao.Close();
+
+                return usuario;
             }
-                   
         }
 
 

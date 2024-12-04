@@ -4,7 +4,7 @@ namespace api_plantsp.Repository.Contract
 {
     public interface IPedidoRepository
     {
-        void Cadastrar(Pedido pedido);
+        Pedido Cadastrar(Pedido pedido);
         Pedido ObterPedido(int IdPed);
         List<Pedido> ObterPedidosCliente(int IdCli);
     }

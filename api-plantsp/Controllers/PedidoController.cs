@@ -25,8 +25,10 @@ namespace api_plantsp.Controllers
             {
                 return BadRequest();
             }
-            _pedidoRepository.Cadastrar(pedido);
-            return Ok(pedido);
+
+            var novoPed = _pedidoRepository.Cadastrar(pedido);
+
+            return Ok(novoPed);
         }
 
         // trazer informação do pedido

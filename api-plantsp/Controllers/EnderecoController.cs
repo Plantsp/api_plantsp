@@ -24,8 +24,10 @@ namespace api_plantsp.Controllers
                 {
                     return BadRequest();
                 }
-                _enderecoRepository.Cadastrar(endereco);
-                return Ok(endereco);
+
+                var novoEndereco = _enderecoRepository.Cadastrar(endereco);
+
+                return Ok(novoEndereco);
             }
 
             // atualizar endereço
